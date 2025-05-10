@@ -58,17 +58,17 @@ def get_DRCT_model(dateset="DRCT", model_Flag="ConvB"):  # DRCT GenImage ConvB U
     if "DRCT" in dateset:
         if "ConvB" in model_Flag:
             model = get_models(model_name="convnext_base_in22k", num_classes=2, freeze_extractor=True, embedding_size=1024)
-            m_path = "/xcy/DRCT_2M/pretrained/DRCT-2M/sdv14/convnext_base_in22k_224_drct_amp_crop/14_acc0.9996.pth"
+            m_path = "/DRCT_2M/pretrained/DRCT-2M/sdv14/convnext_base_in22k_224_drct_amp_crop/14_acc0.9996.pth"
         else:
             model = get_models(model_name="clip-ViT-L-14", num_classes=2, freeze_extractor=True, embedding_size=1024)
-            m_path = "/xcy/DRCT_2M/pretrained/DRCT-2M/sdv14/clip-ViT-L-14_224_drct_amp_crop/13_acc0.9664.pth"
+            m_path = "/DRCT_2M/pretrained/DRCT-2M/sdv14/clip-ViT-L-14_224_drct_amp_crop/13_acc0.9664.pth"
     else:
         if "ConvB" in model_Flag:
             model = get_models(model_name="convnext_base_in22k", num_classes=2, freeze_extractor=True, embedding_size=1024)
-            m_path = "/xcy/DRCT_2M/pretrained/GenImage/sdv14/convnext_base_in22k_224_drct_amp_crop/last_acc0.9991.pth"
+            m_path = "/DRCT_2M/pretrained/GenImage/sdv14/convnext_base_in22k_224_drct_amp_crop/last_acc0.9991.pth"
         else:
             model = get_models(model_name="clip-ViT-L-14", num_classes=2, freeze_extractor=True, embedding_size=1024)
-            m_path = "/xcy/DRCT_2M/pretrained/GenImage/sdv14/clip-ViT-L-14_224_drct_amp_crop/2_acc0.9558.pth"
+            m_path = "/DRCT_2M/pretrained/GenImage/sdv14/clip-ViT-L-14_224_drct_amp_crop/2_acc0.9558.pth"
     model.load_state_dict(torch.load(m_path, map_location='cpu'), strict=False)
     model.to(device).eval()
     return model, trans_DRCT_imagenet_224, 2
@@ -107,7 +107,7 @@ def get_FatFormer_model():
     FAT_model = build_model(FAT_args)
     FAT_model = FAT_model.to(device)
     model_without_ddp = FAT_model
-    checkpoint = torch.load("/xcy/DiFF/fatformer_4class_ckpt.pth", map_location='cpu')
+    checkpoint = torch.load("/DiFF/fatformer_4class_ckpt.pth", map_location='cpu')
     model_without_ddp.load_state_dict(checkpoint['model'])
     FAT_model.eval()
     return FAT_model, trans_224, 2
@@ -145,7 +145,7 @@ def get_FatFormer_visual():
     FAT_model = build_model(FAT_args)
     FAT_model = FAT_model.to(device)
     model_without_ddp = FAT_model
-    checkpoint = torch.load("/xcy/DiFF/fatformer_4class_ckpt.pth", map_location='cpu')
+    checkpoint = torch.load("/DiFF/fatformer_4class_ckpt.pth", map_location='cpu')
     model_without_ddp.load_state_dict(checkpoint['model'])
     FAT_model.eval()
     return FAT_model, trans_224
@@ -183,7 +183,7 @@ def get_FatFormer_classifier():
     FAT_model = build_model(FAT_args)
     FAT_model = FAT_model.to(device)
     model_without_ddp = FAT_model
-    checkpoint = torch.load("/xcy/DiFF/fatformer_4class_ckpt.pth", map_location='cpu')
+    checkpoint = torch.load("/DiFF/fatformer_4class_ckpt.pth", map_location='cpu')
     model_without_ddp.load_state_dict(checkpoint['model'])
     FAT_model.eval()
     return FAT_model, trans_224
